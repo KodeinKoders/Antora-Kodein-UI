@@ -1,0 +1,85 @@
+= Kodein Koders Antora UI
+:experimental:
+
+An https://antora.org[Antora] UI bundle shared by the Kodein Koders documentation sites.
+It is a fork of the Antora default UI with the Kodein Koders branding, a light/dark theme selector and a few per-site settings.
+
+== Using the UI
+
+Reference the bundle of the latest release in the playbook of your documentation site:
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://github.com/KodeinKoders/Antora-Kodein-UI/releases/latest/download/ui-bundle.zip
+    snapshot: true
+----
+
+== Configuration
+
+Each documentation site configures the UI through `site.keys` in its playbook.
+Every key is optional.
+
+[cols="2,4,3"]
+|===
+|Key |Effect |Default
+
+|`navbar_title`
+|Name shown in the header next to the logo.
+|`site.title`
+
+|`navbar_button_label`
+|Label of the button in the header.
+|No button
+
+|`navbar_button_url`
+|Target of that button.
+|The site home page
+
+|`footer_text`
+|Footer text, as HTML.
+|No text
+
+|`github_url`
+|Repository link shown in the header (GitHub icon) and the footer when the page does not come from a public repository.
+|No link
+
+|`home_component`
+|Name of the component whose pages use `github_url` instead of their own repository.
+|None
+|===
+
+Example, for the Kodein Open Source Initiative:
+
+[source,yaml]
+----
+site:
+  title: Kodein Open Source Initiative Documentation
+  keys:
+    navbar_title: Kodein Open Source Initiative
+    navbar_button_label: KOSI Libs
+    home_component: kosi-libs
+    github_url: https://github.com/kosi-libs
+    footer_text: 'Kosi Libs &mdash; open source libraries by <a href="https://kodein-koders.com">Kodein Koders</a>, Kotlin Multiplatform experts.'
+----
+
+== Development
+
+[source,shell]
+----
+npm ci
+npx gulp lint
+npx gulp bundle   # <1>
+npx gulp preview  # <2>
+----
+<1> Produces `build/ui-bundle.zip`.
+<2> Serves a preview at http://localhost:5252, using `preview-src/ui-model.yml` (which includes example `site.keys`).
+
+== Releasing
+
+Push a tag named `v*`: the `release` workflow builds the bundle and attaches `ui-bundle.zip` to the GitHub release.
+
+== License
+
+MPL-2.0, as the Antora default UI this project derives from.

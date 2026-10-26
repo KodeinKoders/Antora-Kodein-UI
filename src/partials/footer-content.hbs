@@ -1,0 +1,11 @@
+<footer class="footer">
+  <img class="footer-logo" src="{{{uiRootPath}}}/img/logo.svg" alt="">
+  <div class="footer-text">
+    {{#with site.keys.footerText}}
+    <p>{{{this}}}</p>
+    {{/with}}
+  </div>
+  {{#with (or (repo-url (and (ne page.component.name site.keys.homeComponent) page.origin.url)) site.keys.githubUrl)}}
+  <a href="{{{this}}}">{{without-scheme this}}</a>
+  {{/with}}
+</footer>

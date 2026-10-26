@@ -1,0 +1,5 @@
+name: kodein-antora-ui
+version: ~
+title: Kodein Koders UI
+nav:
+- modules/ROOT/nav.adoc
