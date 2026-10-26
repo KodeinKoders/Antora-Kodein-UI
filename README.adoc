@@ -1,20 +1,42 @@
 = Kodein Koders Antora UI
 :experimental:
+:version: 1.0.0
+:url-releases: https://github.com/KodeinKoders/Antora-Kodein-UI/releases
 
 An https://antora.org[Antora] UI bundle shared by the Kodein Koders documentation sites.
 It is a fork of the Antora default UI with the Kodein Koders branding, a light/dark theme selector and a few per-site settings.
 
 == Using the UI
 
+The current version is `{version}`.
+
+=== Latest version
+
 Reference the bundle of the latest release in the playbook of your documentation site:
 
-[source,yaml]
+[source,yaml,subs=attributes+]
 ----
 ui:
   bundle:
-    url: https://github.com/KodeinKoders/Antora-Kodein-UI/releases/latest/download/ui-bundle.zip
+    url: {url-releases}/latest/download/ui-bundle.zip
     snapshot: true
 ----
+
+`snapshot: true` makes Antora re-download the bundle on each build, so the site always uses the newest release.
+
+=== Specific version
+
+Pin the bundle to a release tag to get reproducible builds:
+
+[source,yaml,subs=attributes+]
+----
+ui:
+  bundle:
+    url: {url-releases}/download/v{version}/ui-bundle.zip
+----
+
+The release tag is expected to be `v` followed by the version, here `v{version}`.
+Without `snapshot: true`, Antora caches the bundle and does not download it again.
 
 == Configuration
 
@@ -78,7 +100,7 @@ npx gulp preview  # <2>
 
 == Releasing
 
-Push a tag named `v*`: the `release` workflow builds the bundle and attaches `ui-bundle.zip` to the GitHub release.
+Publish a GitHub release: the `release` workflow builds the bundle and attaches `ui-bundle.zip` to it.
 
 == License
 
