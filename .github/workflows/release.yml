@@ -3,7 +3,16 @@ on:
   release:
     types: [published]
 jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: KodeinKoders/kodein-github-actions/version-check@v0.4
+        with:
+          release-name: ${{ github.event.release.name }}
+          check-gradle: false
   release:
+    needs: version-check
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,3 +26,6 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           files: build/ui-bundle.zip
+      - uses: KodeinKoders/kodein-github-actions/release-branches@v0.4
+        with:
+          release-name: ${{ github.event.release.name }}
